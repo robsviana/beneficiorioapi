@@ -81,8 +81,9 @@ git clone https://github.com/robsviana/beneficiorioapi.git
     - mvn package
   
 - 3 Subir aplicação localmente
-    - java -jar target/beneficiarioapi-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod --server.port=8080
+    - java -jar target/beneficiarioapi-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod --server.port=8080- Consulta Documentos cadastrados de beneficiários por ID
 
+- OBS: ao subir aplicação as tabelas no banco de dados H2 serão criadas automaticamente devido a configuração "spring.jpa.hibernate.ddl-auto=update" presente no arquivo de propriedades.
 
 ## links 
 
