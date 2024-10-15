@@ -3,10 +3,13 @@ package tech.robsondev.beneficiarioapi.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.web.bind.annotation.*;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioDocumetoRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioRequestDTO;
@@ -17,12 +20,14 @@ import tech.robsondev.beneficiarioapi.service.BeneficiarioService;
 import tech.robsondev.beneficiarioapi.service.DocumentoService;
 
 import java.net.URI;
+import java.security.Security;
 import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1/beneficiario")
 @Tag(name = "Beneficiario")
+@SecurityRequirement(name = "bearerAuth")
 public class BeneficiarioController {
 
 

@@ -36,7 +36,7 @@ class BeneficiarioServiceTest {
     @Test
     void deveRetornarListaDeBeneficiarios() {
         // ARRANGE
-        Beneficiario beneficiario = new Beneficiario("João", "999999999", "2000-01-01");
+        Beneficiario beneficiario = new Beneficiario("João", "(85) 97688-5932", "01/01/1990");
         beneficiario.setId(UUID.randomUUID());
         when(repository.findAll()).thenReturn(List.of(beneficiario));
 
@@ -52,9 +52,9 @@ class BeneficiarioServiceTest {
     @Test
     void deveSalvarENovoBeneficiario() {
         // ARRANGE
-        BeneficiarioRequestDTO request = new BeneficiarioRequestDTO("Maria", "888888888", "1990-05-20");
+        BeneficiarioRequestDTO request = new BeneficiarioRequestDTO("Maria", "(27) 96798-1829", "20/05/1990");
         ArgumentCaptor<Beneficiario> captor = ArgumentCaptor.forClass(Beneficiario.class);
-        when(repository.save(any(Beneficiario.class))).thenReturn(new Beneficiario("Maria", "888888888", "1990-05-20"));
+        when(repository.save(any(Beneficiario.class))).thenReturn(new Beneficiario("Maria", "(27) 96798-1829", "20/05/1990"));
 
         // ACT
         service.salvaBeneficiario(request);
@@ -63,20 +63,20 @@ class BeneficiarioServiceTest {
         verify(repository).save(captor.capture());
         Beneficiario capturado = captor.getValue();
         assertEquals("Maria", capturado.getNome());
-        assertEquals("888888888", capturado.getTelefone());
-        assertEquals("1990-05-20", capturado.getDataNascimento());
+        assertEquals("(27) 96798-1829", capturado.getTelefone());
+        assertEquals("20/05/1990", capturado.getDataNascimento());
     }
 
     @Test
     void deveSalvarBeneficiarioComDocumentos() {
         // ARRANGE
         var idBeneficiario = UUID.randomUUID();
-        BeneficiarioRequestDTO beneficiarioDTO = new BeneficiarioRequestDTO("Paulo", "777777777", "1985-10-10");
-        DocumentoRequestDTO documentoDTO = new DocumentoRequestDTO(idBeneficiario.toString(), "RG", "16815736926");
+        BeneficiarioRequestDTO beneficiarioDTO = new BeneficiarioRequestDTO("Paulo", "(13) 98807-7311", "10/10/1985");
+        DocumentoRequestDTO documentoDTO = new DocumentoRequestDTO(idBeneficiario.toString(), "RG", "23.770.472-9");
         BeneficiarioDocumetoRequestDTO request = new BeneficiarioDocumetoRequestDTO(beneficiarioDTO, List.of(documentoDTO));
 
         ArgumentCaptor<Beneficiario> captor = ArgumentCaptor.forClass(Beneficiario.class);
-        when(repository.save(any(Beneficiario.class))).thenReturn(new Beneficiario("Paulo", "777777777", "1985-10-10"));
+        when(repository.save(any(Beneficiario.class))).thenReturn(new Beneficiario("Paulo", "(13) 98807-7311", "10/10/1985"));
 
         // ACT
         service.salvaBeneficiarioDocumento(request);
@@ -85,10 +85,10 @@ class BeneficiarioServiceTest {
         verify(repository).save(captor.capture());
         Beneficiario capturado = captor.getValue();
         assertEquals("Paulo", capturado.getNome());
-        assertEquals("777777777", capturado.getTelefone());
+        assertEquals("(13) 98807-7311", capturado.getTelefone());
         assertEquals(1, capturado.getDocumentos().size());
         assertEquals("RG", capturado.getDocumentos().get(0).getTipoDocumento());
-        assertEquals("16815736926", capturado.getDocumentos().get(0).getDescricao());
+        assertEquals("23.770.472-9", capturado.getDocumentos().get(0).getDescricao());
     }
 
     @Nested
@@ -97,7 +97,7 @@ class BeneficiarioServiceTest {
         void deveRetornarBeneficiario() {
             // ARRANGE
             UUID id = UUID.randomUUID();
-            Beneficiario beneficiario = new Beneficiario("Ana", "555555555", "15/03/2021");
+            Beneficiario beneficiario = new Beneficiario("Ana", "(11) 96767-7390", "15/03/2021");
             when(repository.findById(id)).thenReturn(Optional.of(beneficiario));
 
             // ACT
@@ -105,7 +105,7 @@ class BeneficiarioServiceTest {
 
             // ASSERT
             assertEquals("Ana", result.nome());
-            assertEquals("555555555", result.telefone());
+            assertEquals("(11) 96767-7390", result.telefone());
             verify(repository, times(1)).findById(id);
         }
 
@@ -126,7 +126,7 @@ class BeneficiarioServiceTest {
     void deveDeletarBeneficiarioExistente() {
         // ARRANGE
         UUID id = UUID.randomUUID();
-        Beneficiario beneficiario = new Beneficiario("Carlos", "666666666", "1975-07-07");
+        Beneficiario beneficiario = new Beneficiario("Carlos", "(12) 99372-6249", "07/07/1975");
         when(repository.findById(id)).thenReturn(Optional.of(beneficiario));
 
         // ACT
@@ -142,8 +142,8 @@ class BeneficiarioServiceTest {
         void deveAtualizarBeneficiarioExistente() {
             // ARRANGE
             UUID id = UUID.randomUUID();
-            Beneficiario beneficiario = new Beneficiario("Pedro", "444444444", "1982-06-10");
-            BeneficiarioRequestDTO request = new BeneficiarioRequestDTO("Pedro Atualizado", "555555555", "1982-06-11");
+            Beneficiario beneficiario = new Beneficiario("Pedro", "(11) 97976-0801", "10/06/1982");
+            BeneficiarioRequestDTO request = new BeneficiarioRequestDTO("Pedro Atualizado", "(85) 97688-5932", "11/06/1982");
 
             when(repository.findById(id)).thenReturn(Optional.of(beneficiario));
             when(repository.save(any(Beneficiario.class))).thenReturn(beneficiario);
@@ -153,7 +153,7 @@ class BeneficiarioServiceTest {
 
             // ASSERT
             assertEquals("Pedro Atualizado", beneficiario.getNome());
-            assertEquals("555555555", beneficiario.getTelefone());
+            assertEquals("(85) 97688-5932", beneficiario.getTelefone());
             verify(repository, times(1)).save(beneficiario);
         }
 
