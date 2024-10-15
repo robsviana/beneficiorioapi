@@ -66,6 +66,12 @@ Authentication Authorization API
 
 - Configuração de Database : Atualize o arquivo `application.properties` do H2 database com suas credenciais desejadas.
 
+- Para trabalhar com banco de dados em formato de arquivo usar string de conexão: 
+  `spring.datasource.url=jdbc:h2:file:/data/beneficioariodb`
+
+-  Para trabalhar com banco de dados em memória usar string de conexão:
+   `spring.datasource.url=jdbc:h2:mem:/data/beneficioariodb`
+
 ## Como Rodar a Aplicação
 
 ### Passo 1: Clonar o Repositório
@@ -77,11 +83,14 @@ git clone https://github.com/robsviana/beneficiorioapi.git
 - 1 Limpar projeto de quaisquer builds anteriores.
     - mvn clean
 
-- 2 Construir o projeto e gerar o .jar
+- 2 Realizar a execução dos testes unitários.
+  - mvn test
+
+- 3 Construir o projeto e gerar o .jar
     - mvn package
   
-- 3 Subir aplicação localmente
-    - java -jar target/beneficiarioapi-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod --server.port=8080- Consulta Documentos cadastrados de beneficiários por ID
+- 4 Subir aplicação localmente
+    - java -jar target/beneficiarioapi-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod --server.port=8080
 
 - OBS: ao subir aplicação as tabelas no banco de dados H2 serão criadas automaticamente devido a configuração "spring.jpa.hibernate.ddl-auto=update" presente no arquivo de propriedades.
 
