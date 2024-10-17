@@ -22,7 +22,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "tb_user_api")
+@Table(name = "TB_USER_API")
 public class UserApi implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

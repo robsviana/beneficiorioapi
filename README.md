@@ -67,10 +67,10 @@ Authentication Authorization API
 - Configuração de Database : Atualize o arquivo `application.properties` do H2 database com suas credenciais desejadas.
 
 - Para trabalhar com banco de dados em formato de arquivo usar string de conexão: 
-  `spring.datasource.url=jdbc:h2:file:/data/beneficioariodb`
+  - `spring.datasource.url=jdbc:h2:file:/data/beneficioariodb`
 
 -  Para trabalhar com banco de dados em memória usar string de conexão:
-   `spring.datasource.url=jdbc:h2:mem:/data/beneficioariodb`
+   - `spring.datasource.url=jdbc:h2:mem:/data/beneficioariodb`
 
 ## Como Rodar a Aplicação
 
@@ -93,6 +93,20 @@ git clone https://github.com/robsviana/beneficiorioapi.git
     - java -jar target/beneficiarioapi-0.0.1-SNAPSHOT.jar --spring.profiles.active=prod --server.port=8080
 
 - OBS: ao subir aplicação as tabelas no banco de dados H2 serão criadas automaticamente devido a configuração "spring.jpa.hibernate.ddl-auto=update" presente no arquivo de propriedades.
+
+
+## Gerar imagem Docker e subir aplicação no container
+- 1 Realizar a instruções anteriores de como rodar a aplicação até o passo 2.3
+
+- 4 Gerar imagem docker
+  - docker build -t beneficiarioapi .
+
+- 5 Identificar a imagem docker gerada
+  - docker images
+
+- 6 subir aplicação no container expondo para acessos na porta 8080
+  - docker run -p 8080:8080 `IMAGEM ID`
+  
 
 ## links 
 

@@ -7,6 +7,8 @@ import org.springframework.web.server.ResponseStatusException;
 import tech.robsondev.beneficiarioapi.dto.DocumentoRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.DocumentoResponseDTO;
 import tech.robsondev.beneficiarioapi.entity.Documento;
+import tech.robsondev.beneficiarioapi.exception.BeneficiarioBusinessException;
+import tech.robsondev.beneficiarioapi.exception.DocumentoBusinessException;
 import tech.robsondev.beneficiarioapi.repository.BeneficiarioRepository;
 import tech.robsondev.beneficiarioapi.repository.DocumentoRepository;
 
@@ -24,7 +26,7 @@ public class DocumentoService {
 
     public Documento cadastrarDocumento(String idBeneficiario, DocumentoRequestDTO request) {
 
-        var beneficiario = beneficiarioRepository.findById(UUID.fromString(idBeneficiario)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        var beneficiario = beneficiarioRepository.findById(UUID.fromString(idBeneficiario)).orElseThrow(() -> new BeneficiarioBusinessException("Beneficiario nao encontrado"));
         var documento = new Documento(beneficiario.getId(), request.tipoDocumento(), request.descricao(), beneficiario);
         return documentoRepository.save(documento);
     }
@@ -34,7 +36,7 @@ public class DocumentoService {
         var documentos = documentoRepository.findByBeneficiario_id(UUID.fromString(idBeneficiario)).get();
 
         if (documentos.isEmpty()) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new DocumentoBusinessException("Nao foram encontrados documentos do beneficiario com ID "+idBeneficiario);
         }
         return documentos.stream().map(doc -> new DocumentoResponseDTO(doc.getTipoDocumento(), doc.getDescricao())).toList();
 

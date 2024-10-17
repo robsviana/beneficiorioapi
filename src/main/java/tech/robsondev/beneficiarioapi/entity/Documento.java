@@ -16,7 +16,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_documento")
+@Table(name = "TB_DOCUMENTO")
 public class Documento {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

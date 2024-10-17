@@ -13,6 +13,7 @@ import tech.robsondev.beneficiarioapi.dto.BeneficiarioRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioResponseDTO;
 import tech.robsondev.beneficiarioapi.dto.DocumentoRequestDTO;
 import tech.robsondev.beneficiarioapi.entity.Beneficiario;
+import tech.robsondev.beneficiarioapi.exception.BeneficiarioBusinessException;
 import tech.robsondev.beneficiarioapi.repository.BeneficiarioRepository;
 
 import java.util.List;
@@ -116,7 +117,7 @@ class BeneficiarioServiceTest {
             when(repository.findById(id)).thenReturn(Optional.empty());
 
             /// ACT & ASSERT
-            assertThrows(ResponseStatusException.class, () -> service.buscarBeneficiarioPorId(id));
+            assertThrows(BeneficiarioBusinessException.class, () -> service.buscarBeneficiarioPorId(id));
             verify(repository, times(1)).findById(id);
         }
     }
@@ -165,7 +166,7 @@ class BeneficiarioServiceTest {
             when(repository.findById(id)).thenReturn(Optional.empty());
 
             /// ACT & ASSERT
-            assertThrows(ResponseStatusException.class, () -> service.atualizarBeneficiario(id, request));
+            assertThrows(BeneficiarioBusinessException.class, () -> service.atualizarBeneficiario(id, request));
             verify(repository, times(1)).findById(id);
         }
     }

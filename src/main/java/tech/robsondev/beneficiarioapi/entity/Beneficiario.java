@@ -18,7 +18,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Table(name = "tb_beneficiario")
+@Table(name = "TB_BENEFICIARIO")
 public class Beneficiario {
 
 
