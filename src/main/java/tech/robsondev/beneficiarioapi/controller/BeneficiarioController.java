@@ -4,23 +4,20 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.SecurityConfig;
 import org.springframework.web.bind.annotation.*;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioDocumetoRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioResponseDTO;
 import tech.robsondev.beneficiarioapi.dto.DocumentoResponseDTO;
 import tech.robsondev.beneficiarioapi.entity.Beneficiario;
-import tech.robsondev.beneficiarioapi.service.BeneficiarioService;
-import tech.robsondev.beneficiarioapi.service.DocumentoService;
+import tech.robsondev.beneficiarioapi.service.BeneficiarioServiceImpl;
+import tech.robsondev.beneficiarioapi.service.DocumentoServiceImpl;
 
 import java.net.URI;
-import java.security.Security;
 import java.util.List;
 import java.util.UUID;
 
@@ -32,10 +29,10 @@ public class BeneficiarioController {
 
 
     @Autowired
-    private BeneficiarioService beneficiarioService;
+    private BeneficiarioServiceImpl beneficiarioService;
 
     @Autowired
-    private DocumentoService documentoService;
+    private DocumentoServiceImpl documentoService;
 
     @Operation(summary = "Busca todos beneficiario na base de dados", method = "GET")
     @ApiResponses(value = {

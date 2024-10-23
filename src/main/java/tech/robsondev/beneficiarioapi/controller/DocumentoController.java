@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.robsondev.beneficiarioapi.dto.DocumentoRequestDTO;
 import tech.robsondev.beneficiarioapi.entity.Documento;
-import tech.robsondev.beneficiarioapi.service.DocumentoService;
+import tech.robsondev.beneficiarioapi.service.DocumentoServiceImpl;
 
 import java.net.URI;
 
@@ -19,7 +19,7 @@ import java.net.URI;
 public class DocumentoController {
 
     @Autowired
-    private DocumentoService service;
+    private DocumentoServiceImpl service;
 
     @Operation(summary = "Realiza o cadastro de um Documento ", method = "POST")
     @ApiResponses(value = {

@@ -2,9 +2,7 @@ package tech.robsondev.beneficiarioapi.service;
 
 import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioDocumetoRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioRequestDTO;
 import tech.robsondev.beneficiarioapi.dto.BeneficiarioResponseDTO;
@@ -17,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class BeneficiarioService {
+public class BeneficiarioServiceImpl implements IBeneficiarioService {
 
     @Autowired
     private BeneficiarioRepository repository;
@@ -25,6 +23,7 @@ public class BeneficiarioService {
 
     public List<BeneficiarioResponseDTO> listarTodos() {
         var beneficiarios = repository.findAll();
+
         return beneficiarios.stream()
                 .map(as -> new BeneficiarioResponseDTO(as.getId(), as.getNome(), as.getTelefone(),
                         as.getDataNascimento(), as.getDataInclusao(), as.getDataAtualizacao())).toList();
@@ -34,8 +33,8 @@ public class BeneficiarioService {
     public Beneficiario salvaBeneficiario(BeneficiarioRequestDTO request) {
         var bnf = repository.findByNome(request.nome());
 
-        if(bnf.isPresent()){
-            throw new BeneficiarioBusinessException(request.nome()+" ja cadastrado na base de dados!");
+        if (bnf.isPresent()) {
+            throw new BeneficiarioBusinessException(request.nome() + " ja cadastrado na base de dados!");
         }
         var entity = new Beneficiario(request.nome(), request.telefone(), request.dataNascimento());
 
@@ -46,8 +45,8 @@ public class BeneficiarioService {
 
         var bnf = repository.findByNome(request.beneficiario().nome());
 
-        if(bnf.isPresent()){
-            throw new BeneficiarioBusinessException(request.beneficiario().nome()+" ja cadastrado na base de dados!");
+        if (bnf.isPresent()) {
+            throw new BeneficiarioBusinessException(request.beneficiario().nome() + " ja cadastrado na base de dados!");
         }
 
         var beneficiario = new Beneficiario(request.beneficiario().nome(), request.beneficiario().telefone(), request.beneficiario().dataNascimento());

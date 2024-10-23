@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(MockitoExtension.class)
 class DocumentoServiceTest {
     @InjectMocks
-    private DocumentoService documentoService;
+    private DocumentoServiceImpl documentoService;
 
     @Mock
     private BeneficiarioRepository beneficiarioRepository;

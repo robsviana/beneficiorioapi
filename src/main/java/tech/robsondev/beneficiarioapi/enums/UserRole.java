@@ -1,4 +1,4 @@
-package tech.robsondev.beneficiarioapi.enuns;
+package tech.robsondev.beneficiarioapi.enums;
 
 public enum UserRole {
     ADMIN("admin"),
